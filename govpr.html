@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Multi-Bar Chart with Dropdown using Chart.js</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <select id="chartDropdown">
+    <option value="All">All</option>
+    <option value="Haryana">Haryana</option>
+    <option value="Delhi">Delhi</option>
+    <option value="Gujrat">Gujrat</option>
+    <option value="Punjab">Punjab</option>
+    <option value="Goa">Goa</option>
+  </select>
+
+  <div id="chartContainer">
+    <canvas id="myChart"></canvas>
+  </div>
+
+  <script>
+    var chartDropdown = document.getElementById('chartDropdown');
+    chartDropdown.addEventListener('change', function() {
+      var selectedValue = this.value;
+      updateChart(selectedValue);
+    });
+
+    var chartData = {
+      labels: ['2012-13','2013-14','2014-15','2015-16','2016-17','2017-18','2018-19','2019-20','2020-21','2021-22'],
+      datasets: [
+        {
+          label: 'Intake',
+          backgroundColor: 'rgb(128,0, 128)',
+          borderColor:'rgb(128,0,128)',
+          borderWidth: 1,
+          data: [142677,151583,154234,148167,129149,111050,92827,77143,62499,56116]
+        },
+        {
+          label: 'Enrolment',
+          backgroundColor: 'rgb(108, 58, 189)',
+          borderColor:'rgb(108,58,189)',
+          borderWidth: 1,
+          data: [60346,57259,59004,45297,37863,37636,32887,30819,23054,18719]
+        },
+        {
+          label:"Placement",
+          backgroundColor:'rgb(4,220,239)',
+          borderColor:"rgb(4,220,239)",
+          borderWidth:1,
+          data:[16214,16416,16517,15743,18696,16353,15846,14692,13416,11083]
+        }
+      ]
+    };
+
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+      type: 'line',
+      data: chartData,
+      options: {
+        responsive: true,
+        legend: {
+          position: 'top',
+        },
+        title: {
+          display: true,
+          text: 'Chart Title'
+        },
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true
+            }
+          }]
+        }
+      }
+    });
+
+    function updateChart(selectedValue) {
+      if (selectedValue === 'Haryana') {
+        chartData.datasets[0].data = [142677,151583,154234,148167,129149,111050,92827,77143,62499,56116];
+        chartData.datasets[1].data =  [60346,57259,59004,45297,37863,37636,32887,30819,23054,18719];
+        chartData.datasets[2].data=  [16214,16416,16517,15743,18696,16353,15846,14692,13416,11083];
+        chartData.title = 'Haryana';
+      } else if (selectedValue === 'All') {
+        chartData.datasets[0].data = [2851247,3090166,3308929,3204825,3069363,2912730,2748180,2649532,2445181,2326645];
+        chartData.datasets[1].data = [1717683,1717683,1717683,1717683,1717683,1717683,1717683,1717683,1717683,1717683];
+        chartData.datasets[2].data=  [451873,495533,547961,578980,603789,590544,656935,657141,581232,655884];
+        chartData.title = 'All';
+      } 
+
+      myChart.update();
+    }
+  </script>
+
+
+
+<div>
+<select id="chartDropdown">
+    <option value="All">All</option>
+    <option value="Haryana">Haryana</option>
+    <option value="Delhi">Delhi</option>
+    <option value="Gujrat">Gujrat</option>
+    <option value="Punjab">Punjab</option>
+    <option value="Goa">Goa</option>
+  </select>
+
+  <div id="chartContainer">
+    <canvas id="myChart"></canvas>
+  </div>
+</div>
+  <script>
+    var chartDropdown = document.getElementById('chartDropdown');
+    chartDropdown.addEventListener('change', function() {
+      var selectedValue = this.value;
+      updateChart(selectedValue);
+    });
+
+    var chartData = {
+      labels: ['2012-13','2013-14','2014-15','2015-16','2016-17','2017-18','2018-19','2019-20','2020-21','2021-22'],
+      datasets: [
+        {
+          label: 'Intake',
+          backgroundColor: 'rgb(128,0, 128)',
+          borderColor:'rgb(128,0,128)',
+          borderWidth: 1,
+          data: [142677,151583,154234,148167,129149,111050,92827,77143,62499,56116]
+        },
+        {
+          label: 'Enrolment',
+          backgroundColor: 'rgb(108, 58, 189)',
+          borderColor:'rgb(108,58,189)',
+          borderWidth: 1,
+          data: [60346,57259,59004,45297,37863,37636,32887,30819,23054,18719]
+        },
+        {
+          label:"Placement",
+          backgroundColor:'rgb(4,220,239)',
+          borderColor:"rgb(4,220,239)",
+          borderWidth:1,
+          data:[16214,16416,16517,15743,18696,16353,15846,14692,13416,11083]
+        }
+      ]
+    };
+
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+      type: 'line',
+      data: chartData,
+      options: {
+        responsive: true,
+        legend: {
+          position: 'top',
+        },
+        title: {
+          display: true,
+          text: 'Chart Title'
+        },
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true
+            }
+          }]
+        }
+      }
+    });
+
+    function updateChart(selectedValue) {
+      if (selectedValue === 'Haryana') {
+        chartData.datasets[0].data = [142677,151583,154234,148167,129149,111050,92827,77143,62499,56116];
+        chartData.datasets[1].data =  [60346,57259,59004,45297,37863,37636,32887,30819,23054,18719];
+        chartData.datasets[2].data=  [16214,16416,16517,15743,18696,16353,15846,14692,13416,11083];
+        chartData.title = 'Haryana';
+      } else if (selectedValue === 'All') {
+        chartData.datasets[0].data = [2851247,3090166,3308929,3204825,3069363,2912730,2748180,2649532,2445181,2326645];
+        chartData.datasets[1].data = [1717683,1717683,1717683,1717683,1717683,1717683,1717683,1717683,1717683,1717683];
+        chartData.datasets[2].data=  [451873,495533,547961,578980,603789,590544,656935,657141,581232,655884];
+        chartData.title = 'All';
+      } 
+
+      myChart.update();
+    }
+  </script>
+</body>
+</html>
+
+
+<select id="chartDropdown">
+    <option value="All">All</option>
+    <option value="Haryana">Haryana</option>
+    <option value="Delhi">Delhi</option>
+    <option value="Gujrat">Gujrat</option>
+    <option value="Punjab">Punjab</option>
+    <option value="Goa">Goa</option>
+  </select>
+
+  <div id="chartContainer">
+    <canvas id="myChart"></canvas>
+  </div>
+
+  <script>
+    var chartDropdown = document.getElementById('chartDropdown');
+    chartDropdown.addEventListener('change', function() {
+      var selectedValue = this.value;
+      updateChart(selectedValue);
+    });
+
+    var chartData = {
+      labels: ['2012-13','2013-14','2014-15','2015-16','2016-17','2017-18','2018-19','2019-20','2020-21','2021-22'],
+      datasets: [
+        {
+          label: 'Intake',
+          backgroundColor: 'rgb(128,0, 128)',
+          borderColor:'rgb(128,0,128)',
+          borderWidth: 1,
+          data: [142677,151583,154234,148167,129149,111050,92827,77143,62499,56116]
+        },
+        {
+          label: 'Enrolment',
+          backgroundColor: 'rgb(108, 58, 189)',
+          borderColor:'rgb(108,58,189)',
+          borderWidth: 1,
+          data: [60346,57259,59004,45297,37863,37636,32887,30819,23054,18719]
+        },
+        {
+          label:"Placement",
+          backgroundColor:'rgb(4,220,239)',
+          borderColor:"rgb(4,220,239)",
+          borderWidth:1,
+          data:[16214,16416,16517,15743,18696,16353,15846,14692,13416,11083]
+        }
+      ]
+    };
+
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+      type: 'line',
+      data: chartData,
+      options: {
+        responsive: true,
+        legend: {
+          position: 'top',
+        },
+        title: {
+          display: true,
+          text: 'Chart Title'
+        },
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true
+            }
+          }]
+        }
+      }
+    });
+
+    function updateChart(selectedValue) {
+      if (selectedValue === 'Haryana') {
+        chartData.datasets[0].data = [142677,151583,154234,148167,129149,111050,92827,77143,62499,56116];
+        chartData.datasets[1].data =  [60346,57259,59004,45297,37863,37636,32887,30819,23054,18719];
+        chartData.datasets[2].data=  [16214,16416,16517,15743,18696,16353,15846,14692,13416,11083];
+        chartData.title = 'Haryana';
+      } else if (selectedValue === 'All') {
+        chartData.datasets[0].data = [2851247,3090166,3308929,3204825,3069363,2912730,2748180,2649532,2445181,2326645];
+        chartData.datasets[1].data = [1717683,1717683,1717683,1717683,1717683,1717683,1717683,1717683,1717683,1717683];
+        chartData.datasets[2].data=  [451873,495533,547961,578980,603789,590544,656935,657141,581232,655884];
+        chartData.title = 'All';
+      } 
+
+      myChart.update();
+    }
+  </script>

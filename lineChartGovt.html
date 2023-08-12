@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Multi-Bar Chart with Dropdown using Chart.js</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    #drop{
+      display: inline-block;
+      align-items: center;
+      justify-content: center;
+      left:6rem;
+      
+    }
+    #chartContainer:hover{
+  
+  box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.5);
+  transform: scale(1.05);
+}
+    #drop label{
+      font-size:25px;
+      color: purple;
+      margin-left: 100px;
+    }
+    #drop select{
+    width:20rem;
+    height: 2rem;
+    
+
+}
+/* select{
+    font-size: x-large;
+    cursor: pointer;
+}
+.drop{
+      display: inline-block;
+      align-items: center;
+      justify-content: center;
+      left:6rem;
+      margin-right: 60px;
+      margin-left: 60px;
+      
+    }
+    .drop label{
+      font-size:15px;
+      color: blueviolet;
+    }
+    .drop select{
+    width:20rem;
+    height: 2rem;
+    
+
+} */
+select{
+    font-size:20px;
+    cursor: pointer;
+}
+.drop{
+  display: inline-block;
+      align-items: center;
+      justify-content: center;
+      left:8rem;
+      margin-right: 60px;
+      margin-left: 80px;
+      
+    }
+    .drop label{
+      font-size:15px;
+      color: purple;
+    }
+    .drop select{
+    width:10rem;
+    height: 30px;
+    
+
+}
+select{
+    font-size: 20px;
+    cursor: pointer;
+}
+.text{
+  
+  font-size: 30px;
+
+  font-weight: bold;
+  text-align: center;
+  justify-content: center;
+  
+}
+/* select{
+    font-size: x-large;
+    cursor: pointer;
+} */
+header{
+  background-color: purple;
+  height: 80px;
+}
+button{
+    color: white;
+    background-color: purple;
+    padding: 5px;
+    
+    cursor: pointer;
+    border-radius: 6px;
+    border-color:none ;
+   
+
+}
+button:hover{
+    background-color:rgba(255, 0, 255, 0.742);
+}
+  </style>
+</head>
+<body>
+
+  <header>
+
+  </header>
+  <br>
+  <button onclick="myfunction()">Download</button>
+  <br>
+  <div class="drop">
+    <label for="course">SELECT STATE:</label>
+  <select id="chartDropdown">
+    <option value="All">All</option>
+    <option value="Haryana">Haryana</option>
+    <option value="Delhi">Delhi</option>
+    <option value="Gujrat">Gujrat</option>
+    <option value="Punjab">Punjab</option>
+    <option value="Goa">Goa</option>
+  </select>
+</div>
+
+<p class="text">Government-</p></center>
+</div>
+  <div id="chartContainer" style="margin:50px;margin-top: 50px;">
+    <canvas id="myChart" style="height:800px; width:1500px;"></canvas>
+  </div>
+
+  <script>
+     function myfunction(){
+      console.log(print());
+    }
+    var chartDropdown = document.getElementById('chartDropdown');
+    chartDropdown.addEventListener('change', function() {
+      var selectedValue = this.value;
+      updateChart(selectedValue);
+    });
+
+    var chartData = {
+      labels: ['2012-13','2013-14','2014-15','2015-16','2016-17','2017-18','2018-19','2019-20','2020-21','2021-22','2022-23'],
+      datasets: [
+        {
+          label: 'Intake',
+          backgroundColor: 'rgb(128,0, 128)',
+          borderColor:'rgb(128,0,128)',
+          borderWidth: 1,
+          data: [20810,20963,22571,18493,19320,22194,22138,21883,21997,23002,24069]
+        },
+        {
+          label: 'Enrolment',
+          backgroundColor: 'rgb(108, 58, 189)',
+          borderColor:'rgb(108,58,189)',
+          borderWidth: 1,
+          data: [3005,3266,3544,3277,3540,3371,3931,4134,3869,3970,0]
+        },
+        {
+          label:"Placement",
+          backgroundColor:'rgb(4,220,239)',
+          borderColor:"rgb(4,220,239)",
+          borderWidth:1,
+          data:[465,465,465,465,465,465,465,465,465,465,465]
+        }
+      ]
+    };
+
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+      type: 'line',
+      data: chartData,
+      options: {
+        
+        responsive: true,
+        legend: {
+          position: 'top',
+        },
+        title: {
+          display: true,
+          text: 'Chart Title'
+        },
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true
+            }
+          }]
+        }
+      }
+    });
+
+    function updateChart(selectedValue) {
+      if (selectedValue === 'Haryana') {
+        chartData.datasets[0].data =  [20810,20963,22571,18493,19320,22194,22138,21883,21997,23002,24069];
+        chartData.datasets[1].data =   [3005,3266,3544,3277,3540,3371,3931,4134,3869,3970,0];
+        chartData.datasets[2].data=  [465,465,465,465,465,465,465,465,465,465,465];
+        chartData.title = 'Haryana';
+      } else if (selectedValue === 'All') {
+        chartData.datasets[0].data = [407663,440426,464199,494411,510292,525220,540430,539938,543612,546465,560593];
+        chartData.datasets[1].data =  [72735,81317,88466,97220,96611,104180,115411,117227,108725,131990,0];
+        chartData.datasets[2].data= [20392,20392,20392,20392,20392,20392,20392,20392,20392,20392,0];
+        chartData.title = 'All';
+      } 
+
+      myChart.update();
+    }
+  </script>
+  <header>
+
+  </header>
+</body>
+</html>

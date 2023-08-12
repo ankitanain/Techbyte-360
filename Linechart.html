@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Multi-Bar Chart with Dropdown using Chart.js</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    #hu{
+            display: flex;
+            background-color: purple;
+            height: 80px;
+        }
+        .navbar{
+            position: absolute;
+            
+            
+            right:10px;
+
+        }
+        .navbar ul{
+            display: flex;
+            
+          
+            
+            
+        }
+        .navbar ul li{
+            text-decoration: none;
+            list-style: none;
+            margin:20px;
+            color: white;
+            margin-top:12px;
+            
+        }
+        a{
+            color: white;
+            text-decoration: none;
+            list-style: none;
+        }
+        a:hover{
+            color:black;
+            background-color: white;
+            border-radius: 5px;
+        
+        }
+        #trend img{
+         height:70px;
+         width:255px ;
+         margin: 5px;
+         /* margin-top: 7px; */
+         background-color: purple;
+    
+
+}
+.ls{
+    float:right;
+    
+    text-align: right;
+}
+.drop{
+      display: inline-block;
+      align-items: center;
+      justify-content: center;
+      left:6rem;
+      margin-right: 60px;
+      margin-left: 60px;
+      
+    }
+    .drop label{
+      font-size:15px;
+      color: blueviolet;
+    }
+    .drop select{
+    width:20rem;
+    height: 2rem;
+    
+
+}
+#text{
+  
+  font-size: 40px;
+  font-weight: bold;
+  text-align: center;
+  justify-content: center;
+  
+}
+select{
+    font-size: x-large;
+    cursor: pointer;
+}
+footer{
+    height:60px;
+    background-color: purple;
+}
+#chartContainer:hover{
+  
+  box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.5);
+  transform: scale(1.05);
+}
+a.active {
+  background-color:rgba(255, 0, 255, 0.742);
+  color: #fff;
+  box-sizing:content-box;
+  border-radius: 20px;
+}
+button{
+    color: white;
+    background-color: purple;
+    padding: 5px;
+    
+    cursor: pointer;
+    border-radius: 6px;
+    border-color:none ;
+   
+
+}
+button:hover{
+    background-color:rgba(255, 0, 255, 0.742);
+}
+  </style>
+</head>
+<body>
+  <div id="hu">
+    <div id="trend">
+        <img src="logo.png">
+        
+    </div>
+    <div class="navbar">
+        <ul>
+            <!-- <li id="trend">Trend Cast</li> -->
+            <li class="ls"><a href="project.html" >Home</a></li>
+            <li class="ls"><a href="Linechart22.html" class="active">Job Trend Analysis</a></li>
+            <li class="ls"><a href="chatchart.html" >Admission and Placement Analysis</a></li>
+            <!-- <li><a href="contact.html" >Program Trend after SSC</a></li>
+            <li><a href="#" >State Wise Map</a></li> -->
+            <li class="ls"><a href="SyllabusUpgradation.html" >Syllabus Upgradation</a></li>
+        </ul>
+    </div>
+
+    </div>
+    <script>
+      const links = document.querySelectorAll('navbar a');
+
+links.forEach(link => {
+link.addEventListener('click', function() {
+  // Remove the "active" class from all the links
+  links.forEach(link => link.classList.remove('active'));
+
+  // Add the "active" class to the clicked link
+  this.classList.add('active');
+});
+});
+
+    </script>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="drop">
+    <label for="course">SELECT INDUSTRY:</label>
+  <select id="chartDropdown">
+    <option value="Agriculture">Agriculture</option>
+    <option value="Business Services">Business Services</option>
+    <option value="Construction">Construction</option>
+    <option value="Electricity,gas & water companies">Electricity,Gas & water companies</option>
+    <option value="Finance">Finance</option>
+    <option value="Healthcare">Healthcare</option>
+    <option value="Insurance">Insurance</option>
+    <option value="Manufacture">Manufacture</option>
+    <option value="Media & Communications">Media & Communications</option>
+    <option value="Mining & Quarrying">Mining & Quarrying</option>
+    <option value="Pharmaceuticall">Pharmaceuticall</option>
+    <option value="Real estate & renting">Real estate & renting</option>
+    <option value="Software">Software</option>
+    <option value="Trading">Trading</option>
+    <option value="Transport,storage & Communications">Transport,storage & Communications</option>
+  </select>
+</div>
+
+<div class="drop">
+  <label for="course">SELECT STATE:</label>
+  <select id="chartDropdown">
+    <option value="Haryana">Haryana</option>
+    <option value="Delhi">Delhi</option>
+    <option value="Gujarat">Gujarat</option>
+    <option value="Uttarakhand">Uttarakhand</option>
+    <option value="Meghalaya">Meghalaya</option>
+    <option value="Tamil Nadu">Tamil Nadu</option>
+  </select>
+</div><br>
+<br>
+</div><br>
+<p id="text">New Registered Companies</p>
+  <div id="chartContainer" style="margin:100px;margin-top: 50px;">
+    <canvas id="myChart" style="height:300px; width:1000px;"></canvas>
+  </div>
+
+  <script>
+     function myfunction(){
+      console.log(print());
+    }
+    var chartDropdown = document.getElementById('chartDropdown');
+    chartDropdown.addEventListener('change', function() {
+      var selectedValue = this.value;
+      updateChart(selectedValue);
+    });
+
+    var chartData = {
+      labels: ['2016','2017','2018','2019','2020','2021','2022'],
+      datasets: [
+        {
+          label: 'Total Companies',
+          backgroundColor: 'rgba(255, 99, 132, 0.2)',
+          borderColor: 'rgba(255, 99, 132, 1)',
+          borderWidth: 1,
+          data: [67, 78, 83, 322,375,310,68]
+        }
+      ]
+    };
+
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+      type: 'line',
+      data: chartData,
+      options: {
+        responsive: true,
+        legend: {
+          position: 'top',
+        },
+        title: {
+          display: true,
+          text: 'Chart Title'
+        },
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true
+            }
+          }]
+        }
+      }
+    });
+
+    function updateChart(selectedValue) {
+      if (selectedValue === 'Agriculture') {
+        chartData.datasets[0].data = [67, 78, 83, 322,375,310,68];
+        chartData.title = 'Agriculture';
+      } else if (selectedValue === 'Business Services') {
+        chartData.datasets[0].data = [1871, 2240, 852, 1953,2089,1880,693];
+        chartData.title = 'Business Services';
+      } else if (selectedValue === 'Construction') {
+        chartData.datasets[0].data = [93, 137, 85, 285,308,349,119];
+        chartData.title = 'Construction';
+      } else if (selectedValue === 'Electricity,gas & water companies') {
+        chartData.datasets[0].data = [55, 42, 22, 73,81,53,49];
+        chartData.title = 'Electricity,gas & water companies';
+      } else if (selectedValue === 'Finance') {
+        chartData.datasets[0].data = [28, 66, 37, 162,144,133,60];
+        chartData.title = 'Finance';
+      } else if (selectedValue === 'Healthcare') {
+        chartData.datasets[0].data = [101, 78, 62, 140,175,181,61];
+        chartData.title = 'Healthcare';
+      } else if (selectedValue === 'Insurance') {
+        chartData.datasets[0].data = [7, 2, 1, 6,11,11,2];
+        chartData.title = 'Insurance';
+      } else if (selectedValue === 'Manufacture') {
+        chartData.datasets[0].data = [463, 521, 358, 1004,1378,1335,517];
+        chartData.title = 'Manufacture';
+      } else if (selectedValue === 'Media & Communications') {
+        chartData.datasets[0].data = [185, 386, 293, 824,840,767,326];
+        chartData.title = 'Media & Communications';
+      } else if (selectedValue === 'Mining & Quarrying') {
+        chartData.datasets[0].data = [16, 18, 5, 25,49,26,8];
+        chartData.title = 'Mining & Quarrying';
+      } else if (selectedValue === 'Pharmaceuticall') {
+        chartData.datasets[0].data = [37, 40, 20, 72,99,94,32];
+        chartData.title = 'Pharmaceuticall';
+      } else if (selectedValue === 'Real estate & renting') {
+        chartData.datasets[0].data = [130, 129, 57, 187,206,266,106];
+        chartData.title = 'Real estate & renting';
+      } else if (selectedValue === 'Software') {
+        chartData.datasets[0].data = [105, 148, 71, 166,115,146,69];
+        chartData.title = 'Software';
+      } else if (selectedValue === 'Trading') {
+        chartData.datasets[0].data = [334, 362, 232, 802,906,844,316];
+        chartData.title = 'Trading';
+      } else if (selectedValue === 'Transport,storage & Communications') {
+        chartData.datasets[0].data = [124, 130, 62, 257,254,242,110];
+        chartData.title = 'Transport,storage & Communications';
+      }
+
+      myChart.update();
+    }
+    
+  </script>
+  
+  <div>
+
+
+
+  </script>
+  
+  <div>
+
+
+
+    <footer>
+
+    </footer>
+</div>
+</body>
+</html>
+
+        
+        

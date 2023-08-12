@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Dropdown Example</title>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<style>
+		table, th, td {
+			border: 1px solid black;
+			border-collapse: collapse;
+			padding: 5px;
+		}
+        #hu{
+            display: flex;
+            background-color: purple;
+            height: 80px;
+        }
+        .navbar{
+            position: absolute;
+            
+            
+            right:10px;
+
+        }
+        .navbar ul{
+            display: flex;
+            
+          
+            
+            
+        }
+        .navbar ul li{
+            text-decoration: none;
+            list-style: none;
+            margin:20px;
+            color: white;
+            margin-top:12px;
+            
+        }
+        a{
+            color: white;
+            text-decoration: none;
+            list-style: none;
+        }
+        a:hover{
+            color:black;
+            background-color: white;
+            border-radius: 5px;
+        
+        }
+        #trend img{
+            height:70px;
+         width:255px ;
+         margin: 5px;
+         /* margin-top: 7px; */
+         background-color: purple;
+    
+}
+.drop{
+      display: inline-block;
+      align-items: center;
+      justify-content: center;
+      left:8rem;
+      margin-right: 60px;
+      margin-left: 80px;
+      
+    }
+    select{
+    font-size:20px;
+    cursor: pointer;
+}
+    .drop label{
+      font-size:15px;
+      color: purple;
+    }
+    .drop select{
+    width:10rem;
+    height: 30px;
+    
+
+}
+#text{
+  
+  font-size: 40px;
+  font-weight: bold;
+  text-align: center;
+  justify-content: center;
+ 
+  
+}
+
+#myTable{
+    text-align: center;
+    justify-content: center;
+    border: 2px solid black;
+    margin-left: 350px;
+    height:300px;
+    width:600px;
+    font-size: 20px;
+    font-weight: 60px;
+}
+#myTable:hover{
+    box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.5);
+  transform: scale(1.05);
+}
+
+#myTable thead tr th{
+    font-size: 25px;
+    color: purple;
+    height: 50px;
+}
+#txt{
+    font-size: 30px;
+  font-weight: bold;
+  text-align: center;
+  justify-content: center;
+}
+#line{
+    font-weight: bolder;
+    color: purple;
+    border: 2px solid purple
+}
+
+        footer{
+    height:60px;
+    background-color: purple;
+}
+a.active {
+  background-color:rgba(255, 0, 255, 0.742);
+  color: #fff;
+  box-sizing:content-box;
+  border-radius: 20px;
+}
+button{
+    color: white;
+    background-color: purple;
+    padding: 5px;
+    
+    cursor: pointer;
+    border-radius: 6px;
+    border-color:none ;
+   
+
+}
+button:hover{
+    background-color:rgba(255, 0, 255, 0.742);
+}
+	</style>
+</head>
+<body>
+    <div id="hu">
+        <div id="trend">
+            <img src="logo.png">
+            
+        </div>
+        <div class="navbar">
+            <ul>
+                <!-- <li id="trend">Trend Cast</li> -->
+                <li class="ls"><a href="project.html" >Home</a></li>
+                <li class="ls"><a href="LineChart.html" >Job Trend Analysis</a></li>
+                <li class="ls"><a href="chatchart.html" >Admission and Placement Analysis</a></li>
+                <!-- <li><a href="contact.html" >Program Trend after SSC</a></li>
+                <li><a href="#" >State Wise Map</a></li> -->
+                <li class="ls"><a href="BranchPlacmt22.html" class="active" >Syllabus Upgradation</a></li>
+            </ul>
+        </div>
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        
+        <button onclick="myfunction()">Download</button>
+    <div class="drop">
+        <label for="course">SELECT BRANCH:</label>
+	<select id="dropdown1">
+		<option value="Computer Engineering">Computer Eng.</option>
+		<option value="Pharmacy">Pharmacy</option>
+        <option value="Management">Management</option>
+        <option value="B.Arch">B.Arch</option>
+        <option value="Electrical Engineering">Electrical Engineering</option>
+        <option value="Civil Engineering">Civil Engineering</option>
+        <option value="Mechanical Engineering">Mechanical Engineering</option>
+	</select>
+    </div>
+    <div class="drop">
+    <label for="course">SELECT COURSE:</label>
+	<select id="dropdown2">
+		<option value="Data Scientist">Data Scientist</option>
+		<option value="Android Developer">Android Developer</option>
+        <option value="Database Adminstrator">Database Adminstrator</option>
+        <option value="PHP Developer">PHP Developer</option>
+        <option value="Frontend Developer">Frontend Developer</option>
+        <option value="Backend Developer">Backend Developer</option>
+        <option value="Data Analyst">Data Analyst</option>
+	</select>
+</div>
+	<button onclick="updateTable()">Update Table</button>
+	<br><br>
+    <hr id="line">
+	
+    <p id="txt">Trending skills for inclusion in upcoming Syllabus Upgradation</p>
+	<br><br>
+	<table id="myTable">
+		<thead>
+			<tr>
+				<th>Demanded Skills of 2015</th>
+				<th>Demanded Skills of 2022</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>R(Programming)</td>
+				<td>Machine Learning</td>
+			</tr>
+			<tr>
+				<td>SQL</td>
+				<td>Deep Learning</td>
+			</tr>
+            <tr>
+				<td>SAS</td>
+				<td>Natural Data Processing (NLP)</td>
+			</tr>
+            <tr>
+				<td>Tableau</td>
+				<td>Data Science</td>
+			</tr>
+            <tr>
+				<td>SAS Programming</td>
+				<td>Python (Programming Language)</td>
+			</tr>
+            <tr>
+				<td>Data Analysis</td>
+				<td>Tensorflow</td>
+			</tr>
+            <tr>
+				<td>Analytics</td>
+				<td>Pandas(Software)</td>
+			</tr>
+            <tr>
+				<td>Machine Learning</td>
+				<td>Predictive Modeling</td>
+			</tr>
+            <tr>
+				<td>Python (Programming Language)</td>
+				<td>Scikiet-Learn</td>
+			</tr>
+            <tr>
+				<td>C(Programming Language)</td>
+				<td>Artificial Intelligence(AI)</td>
+			</tr>
+		</tbody>
+	</table>
+	<script>
+        function myfunction(){
+        console.log(print());
+    }
+		function updateTable() {
+			var dropdown1 = document.getElementById("dropdown1");
+			var dropdown2 = document.getElementById("dropdown2");
+			var table = document.getElementById("myTable");
+			var tbody = table.getElementsByTagName("tbody")[0];
+			tbody.innerHTML = "";
+			var selected1 = dropdown1.value;
+			var selected2 = dropdown2.value;
+			var data;
+			if (selected1 == "Computer Engineering" && selected2 == "Data Scientist") {
+				data = ["R(Programming Language)<br><hr>SQL<br><hr>SAS<br><hr>Tableau<br><hr>SAS Programming<br><hr>Data Analysis<br><hr>Analytics<br><hr>Machine Learning<br><hr>Python (Programming Language)<br><hr>C(Programming Language)", "Machine Learning<br><hr>Deep Learning<br><hr>Natural Data Processing (NLP)<br><hr>Data Science<br><hr>Python (Programming Language)<br><hr>Tensorflow<br><hr>Pandas(Software)<br><hr>Predictive Modeling <br><hr>Scikiet-Learn<br><hr>Artificial Intelligence(AI)"];
+                //data[1] = ["SQL", "Deep Learning"];
+			} else if (selected1 == "Computer Engineering" && selected2 == "Android Developer") {
+				data = ["Core Java<br><hr>Android SDK<br><hr>XML<br><hr>C(Programming Language)<br><hr>HTML<br><hr>SQLite<br><hr>My SQL <br><hr>Java", "Android Design<br><hr>Android Design<br><hr>Android Development<br><hr>Firebase<br><hr>Android SDK<br><hr>Flutter<br><hr>Android<br><hr>Kotlin"];
+			} else if (selected1 == "Computer Engineering" && selected2 == "Database Adminstrator") {
+				data = ["Oracle Database Administraton<br><hr>Database<br><hr>Unix<br><hr>PLSQL<br><hr>SQL<br><hr>Microsoft SQL Server <br><hr>Database Administration<br><hr>Performance Tuning<br><hr>Oracle Database ", "SQL<br><hr>Microsoft SQL Server<br><hr>Data Queue<br><hr>Oracle Database <br><hr>Oracle RAC<br><hr>Replication<br><hr>PostgresSQL<br><hr>Database Administration<br><hr>Performance Tuning "];
+			} else if (selected1 == "option2" && selected2 == "optionB") {
+				data = ["Option 2, Option B", "Data for Option 2 and Option B"];
+			}
+			var row = tbody.insertRow(0);
+			var cell1 = row.insertCell(0);
+			var cell2 = row.insertCell(1);
+			cell1.innerHTML = data[0];
+			cell2.innerHTML = data[1];
+		}
+	</script>
+   <br>
+   <br>
+   <br>
+   <br>
+    <div>
+        <footer>
+    
+        </footer>
+    </div>
+</body>
+</html>

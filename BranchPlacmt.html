@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Multi-Bar Chart with Dropdown using Chart.js</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    /* #drop{
+      display: inline-block;
+      align-items: center;
+      justify-content: center;
+      left:6rem;
+      
+    }
+    #drop label{
+      font-size:25px;
+      color: purple;
+      margin-left: 100px;
+    }
+    #drop select{
+    width:20rem;
+    height: 2rem;
+    
+
+}
+select{
+    font-size: x-large;
+    cursor: pointer;
+}
+.drop{
+      display: inline-block;
+      align-items: center;
+      justify-content: center;
+      left:6rem;
+      margin-right: 60px;
+      margin-left: 60px;
+      
+    }
+    .drop label{
+      font-size:15px;
+      color: blueviolet;
+    }
+    .drop select{
+    width:20rem;
+    height: 2rem;
+    
+
+} */
+
+select{
+    font-size:20px;
+    cursor: pointer;
+}
+.drop{
+  display: inline-block;
+      align-items: center;
+      justify-content: center;
+      left:8rem;
+      margin-right: 60px;
+      margin-left: 80px;
+      
+    }
+    .drop label{
+      font-size:15px;
+      color: purple;
+    }
+    .drop select{
+    width:10rem;
+    height: 30px;
+    
+
+}
+select{
+    font-size: 20px;
+    cursor: pointer;
+}
+.text{
+  
+  font-size: 30px;
+
+  font-weight: bold;
+  text-align: center;
+  justify-content: center;
+  
+}
+/* select{
+    font-size: x-large;
+    cursor: pointer;
+} */
+header{
+  background-color: purple;
+  height: 80px;
+}
+#chartContainer:hover{
+  
+  box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.5);
+  transform: scale(1.05);
+}
+button{
+    color: white;
+    background-color: purple;
+    padding: 5px;
+    
+    cursor: pointer;
+    border-radius: 6px;
+    border-color:none ;
+   
+
+}
+button:hover{
+    background-color:rgba(255, 0, 255, 0.742);
+}
+  </style>
+</head>
+<body>
+    <header>
+
+    </header>
+    <br>
+    <button onclick="myfunction()">Download</button>
+    <br>
+    <div class="drop">
+      <label for="course">SELECT STATE:</label>
+  <select id="chartDropdown">
+    <option value="2016-17">2016-17</option>
+    <option value="2017-18">2017-18</option>
+    <option value="2018-19">2018-19</option>
+    <option value="2019-20">2019-20</option>
+    <option value="2020-21">2020-21</option>
+  </select>
+    </div>
+    <p class="text">Data of Previous Year for Engineering and Technology,Management and Pharmacy of Haryana State.</p></center>
+</div>
+  <div id="chartContainer" style="margin:100px;margin-top: 50px;">
+    <canvas id="myChart" style="height:300px; width:1000px;"></canvas>
+  </div>
+
+  <script>
+     function myfunction(){
+      console.log(print());
+    }
+    var chartDropdown = document.getElementById('chartDropdown');
+    chartDropdown.addEventListener('change', function() {
+      var selectedValue = this.value;
+      updateChart(selectedValue);
+    });
+
+    var chartData = {
+      labels: ['Chemical Engg.','Civil Engg','Electronics & Communication Engg.','Electrical Engg.','Mechanical Engg.','MBA','MCA','Computer Science Engg.','PGDM','Pharmacy','Textile Engg.'],
+      datasets: [
+        {
+          label: 'Intake',
+          backgroundColor: 'rgb(128,0, 128)',
+          borderColor:'rgb(128,0,128)',
+          borderWidth: 1,
+          data: [1280,21998,31262,16572,29292,14006,3348,39246,2820,4627,748]
+        },
+        {
+          label: 'Enrolment',
+          backgroundColor: 'rgb(108, 58, 189)',
+          borderColor:'rgb(108,58,189)',
+          borderWidth: 1,
+          data: [673,12442,11100,6554,9751,4239,1420,20946,1017,2830,454]
+        },{
+          label: 'Passed',
+          backgroundColor: 'rgb(204,0,102)',
+          borderColor:'rgb(204,0,102)',
+          borderWidth: 1,
+          data: [365,3545,7401,2562,6179,3101,887,7893,817,1251,91]
+        },
+        {
+          label:"Placement",
+          backgroundColor:'rgb(4,220,239)',
+          borderColor:"rgb(4,220,239)",
+          borderWidth:1,
+          data:[195,1781,4078,1374,3131,1769,395,4478,581,623,104]
+        }
+      ]
+    };
+
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: chartData,
+      options: {
+        responsive: true,
+        legend: {
+          position: 'top',
+        },
+        title: {
+          display: true,
+          text: 'Chart Title'
+        },
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true
+            }
+          }]
+        }
+      }
+    });
+
+    function updateChart(selectedValue) {
+      if (selectedValue === '2016-17') {
+        chartData.datasets[0].data =  [1280,21998,31262,16572,29292,14006,3348,39246,2820,4627,748];
+        chartData.datasets[1].data =  [673,12442,11100,6554,9751,4239,1420,20946,1017,2830,454];
+        chartData.datasets[2].data= [365,3545,7401,2562,6179,3101,887,7893,817,1251,91];
+        chartData.datasets[3].data= [195,1781,4078,1374,3131,1769,395,4478,581,623,104];
+        chartData.title = '2016-17';
+      } else if (selectedValue === '2017-18') {
+        chartData.datasets[0].data =  [1178,25610,30704,18078,29112,13371,3438,43314,3000,4657,868];
+        chartData.datasets[1].data =  [574,12778,10053,6873,7694,3876,917,20268,1265,2912,342];
+        chartData.datasets[2].data= [375,4470,7758,2909,6670,2830,986,8980,966,1358,171];
+        chartData.datasets[3].data= [288,2296,4086,1591,3363,1622,506,5247,715,590,120];
+        chartData.title = '2017-18';
+      } else if(selectedValue=='2018-19'){
+        chartData.datasets[0].data=[1358,27646,30184,18324,29280,12474,3138,45414,3360,5065,868];
+        chartData.datasets[1].data=[585,13543,10622,7116,7417,5074,709,19749,1415,3436,319];
+        chartData.datasets[2].data=[344,4986,7025,2842,5922,2602,1012,9100,1035,1510,99];
+        chartData.datasets[3].data=[302,2336,3782,1459,3010,1726,551,5181,755,738,120];
+        chartData.title='2018-19';
+      } else if(selectedValue=='2019-20'){
+        chartData.datasets[0].data=[938,26083,28315,17217,27378,11954,3078,41940,3480,5809,568];
+        chartData.datasets[1].data=[500,9604,8481,4909,5194,4400,687,8074,3493,216];
+        chartData.datasets[2].data=[111,3120,3693,1605,2896,1484,403,5010,129,656,107];
+        chartData.datasets[3].data=[265,2854,3984,1521,2955,1729,492,5036,747,641,107];
+        chartData.title='2019-20';
+      } else if(selectedValue=='2020-21'){
+        chartData.datasets[0].data=[938,23289,24618,14995,23273,11185,2964,35774,3120,6910,868];
+        chartData.datasets[1].data=[532,7645,8693,4225,4303,3725,546,10906,1140,4385,338];
+        chartData.datasets[2].data=[];
+        chartData.datasets[3].data=[315,2949,3472,1528,2323,1764,551,6214,689,925,132];
+        chartData.title='2020-21';
+      }
+
+      myChart.update();
+    }
+    
+  </script>
+  <header>
+
+  </header>
+</body>
+</html>

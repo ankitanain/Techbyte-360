@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Multi-Bar Chart with Dropdown using Chart.js</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  
+  
+  <style>
+    #hu{
+            display: flex;
+            background-color: purple;
+            height: 80px;
+        }
+        .navbar{
+            position: absolute;
+            
+            
+            right:10px;
+
+        }
+        .navbar ul{
+            display: flex;
+            
+          
+            
+            
+        }
+        .navbar ul li{
+            text-decoration: none;
+            list-style: none;
+            margin:20px;
+            color: white;
+            margin-top:12px;
+            
+        }
+        a{
+            color: white;
+            text-decoration: none;
+            list-style: none;
+        }
+        a:hover{
+            color:black;
+            background-color: white;
+            border-radius: 5px;
+        
+        }
+        #trend img{
+         height:70px;
+         width:255px ;
+         margin: 5px;
+         /* margin-top: 7px; */
+         background-color: purple;
+    
+
+}
+.ls{
+    float:right;
+    
+    text-align: right;
+}
+    /* #drop{
+      display: inline-block;
+      align-items: center;
+      justify-content: center;
+      left:8rem;
+      margin-right: 60px;
+      margin-left: 80px;
+      
+    }
+    #drop label{
+      font-size:15px;
+      color: purple;
+      
+    }
+    #drop select{
+    width:10rem;
+    height: 30px;
+    
+
+} */
+select{
+    font-size:20px;
+    cursor: pointer;
+}
+.drop{
+  display: inline-block;
+      align-items: center;
+      justify-content: center;
+      left:8rem;
+      margin-right: 60px;
+      margin-left: 80px;
+      
+    }
+    .drop label{
+      font-size:15px;
+      color: purple;
+    }
+    .drop select{
+    width:10rem;
+    height: 30px;
+    
+
+}
+select{
+    font-size: 20px;
+    cursor: pointer;
+}
+.text{
+  
+  font-size: 30px;
+
+  font-weight: bold;
+  text-align: center;
+  justify-content: center;
+  
+}
+
+#chartContainer:hover{
+  
+  box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.5);
+  transform: scale(1.05);
+}
+a.active {
+  background-color:rgba(255, 0, 255, 0.742);
+  color: #fff;
+  box-sizing:content-box;
+  border-radius: 20px;
+}
+.box {
+			display: inline-block;
+			margin: 10px;
+			padding: 10px;
+			border: 1px solid black;
+            color: white;
+            background-color:purple;
+            font-size: 70px;
+            text-align: center;
+            height:80px;
+            width: 200px;
+            border-radius: 30px;
+		}
+    #bo{
+      justify-content: center;
+      text-align: center;
+      display:flex;
+    }
+    .box{
+    box-shadow: 3px 3px 3px 3px rgba(0,0,0,0.5);
+    }
+    .pt{
+      font-size:20px;
+      color: black;
+    }
+    .para{
+      top:0px;
+      color: black;
+      font-size: 13px;
+    }
+    footer{
+    height:60px;
+    background-color: purple;
+}
+.b {
+			
+			margin: 10px;
+			padding: 10px;
+			border: 1px solid black;
+            color: white;
+            background-color: purple;
+            font-size: 70px;
+            text-align: center;
+            height:80px;
+            width: 200px;
+            border-radius: 30px;
+		}
+    #next{
+      margin-top: 60px;
+    }
+    .line{
+    font-weight: bolder;
+    color: purple;
+    border: 2px solid purple
+}
+.oo{
+  margin-top: 20px;
+}
+.lk a{
+  color:black;
+}
+button{
+    color: white;
+    background-color: purple;
+    padding: 5px;
+    
+    cursor: pointer;
+    border-radius: 6px;
+    border-color:none ;
+   
+
+}
+button:hover{
+    background-color:rgba(255, 0, 255, 0.742);
+}
+  </style>
+</head>
+<body>
+  <div id="hu">
+    <div id="trend">
+        <img src="logo.png">
+        
+    </div>
+    <div class="navbar">
+        <ul>
+            <!-- <li id="trend">Trend Cast</li> -->
+            <li class="ls"><a href="project.html" >Home</a></li>
+            <li class="ls"><a href="LineChart.html" >Job Trend Analysis</a></li>
+            <li class="ls"><a href="chatchart.html" class="active">Admission and Placement Analysis</a></li>
+            <!-- <li><a href="contact.html" >Program Trend after SSC</a></li>
+            <li><a href="#" >State Wise Map</a></li> -->
+            <li class="ls"><a href="BranchPlacmt22.html" >Syllabus Upgradation</a></li>
+        </ul>
+    </div>
+
+    </div>
+    <script>
+      const links = document.querySelectorAll('navbar a');
+
+links.forEach(link => {
+link.addEventListener('click', function() {
+  // Remove the "active" class from all the links
+  links.forEach(link => link.classList.remove('active'));
+
+  // Add the "active" class to the clicked link
+  this.classList.add('active');
+});
+});
+
+    </script>
+    <br>
+    <br>
+    <br>
+    <button onclick="myfunction()">Download</button>
+    <br>
+  
+  <div class="drop">
+  <label for="course">SELECT PROGRAM:</label>
+  <select id="chartDropdown">
+    <option value="Engineering & Technology">Eng. & Tech.</option>
+    <option value="Management">Management</option>
+    <option value="Pharmacy">Pharmacy</option>
+  </select>
+</div>
+<div class="drop">
+  <label for="course">SELECT STATE:</label>
+  <select id="chartDropdown">
+    <option value="Haryana">Haryana</option>
+    <option value="Delhi">Delhi</option>
+    <option value="Gujarat">Gujarat</option>
+    <option value="Uttarakhand">Uttarakhand</option>
+    <option value="Meghalaya">Meghalaya</option>
+    <option value="Tamil Nadu">Tamil Nadu</option>
+  </select>
+</div>
+<br>
+<br>
+<div><center>
+<p class="text">Data of Previous Year for Engineering and Technology,Management and Pharmacy of Haryana State.</p></center>
+</div>
+  <div id="chartContainer" style="margin:100px;margin-top: 50px;">
+    <canvas id="myChart" style="height:300px; width:1000px;"></canvas>
+  </div>
+
+  <script>
+     function myfunction(){
+      console.log(print());
+    }
+    var chartDropdown = document.getElementById('chartDropdown');
+    chartDropdown.addEventListener('change', function() {
+      var selectedValue = this.value;
+      updateChart(selectedValue);
+    });
+
+    var chartData = {
+      labels: ['2012-13','2013-14','2014-15','2015-16','2016-17','2017-18','2018-19','2019-20','2020-21','2021-22','2022-23'],
+      datasets: [
+        {
+          label: 'Intake',
+          backgroundColor: 'rgb(128,0, 128)',
+          borderWidth: 1,
+          data: [143362,152478,156802,144517,127074,112834,94567,78504,71286,66815,65314]
+        },
+        {
+          label: 'Enrolment',
+          backgroundColor: 'rgb(108, 58, 189)',
+          borderWidth: 1,
+          data: [66311,63157,63157,63157,40467,41285,36296,35050,31802,28131,0]
+        },
+        {
+          label:"Students Passsed",
+          backgroundColor:'rgb(14,111,229)',
+          borderWidth:1,
+          data:[35434,38561,36944,35336,33124,29825,25148,18858,2981,0,0]
+        },
+        {
+          label:"Placement",
+          backgroundColor:'rgb(4,220,239)',
+          borderWidth:1,
+          data:[16036,16572,16795,15635,18353,15829,15601,14800,13818,11533,0]
+        }
+      ]
+    };
+
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: chartData,
+      options: {
+        responsive: true,
+        legend: {
+          position: 'top',
+        },
+        title: {
+          display: true,
+          text: 'Chart Title'
+        },
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true
+            }
+          }]
+        }
+      }
+    });
+
+    function updateChart(selectedValue) {
+      if (selectedValue === 'Engineering & Technology') {
+        chartData.datasets[0].data = [143362,152478,156802,144517,127074,112834,94567,78504,71286,66815,65314];
+        chartData.datasets[1].data = [66311,63157,63157,63157,40467,41285,36296,35050,31802,28131,0];
+        chartData.datasets[2].data=  [35434,38561,36944,35336,33124,29825,25148,18858,2981,0,0];
+        chartData.datasets[3].data=  [16036,16572,16795,15635,18353,15829,15601,14800,13818,11533,0];
+        chartData.title = 'Engineering & Technology';
+      } else if (selectedValue === 'Management') {
+        chartData.datasets[0].data = [17066,16671,16014,15614,14485,12496,10739,9854,9524,9591,11461];
+        chartData.datasets[1].data = [5644,5432,6615,6018,5419,5802,5983,5655,5633,5421,5561];
+        chartData.datasets[2].data=  [5103,4545,4431,4376,4364,3982,3977,3110,768,3276,0];
+        chartData.datasets[3].data=  [2697,2616,2712,2628,2696,2538,2692,3010,2707,3004,511];
+        chartData.title = 'Management';
+      } else if(selectedValue=='Pharmacy'){
+        chartData.datasets[0].data=[4567,4717,5335,6529,6910,7914,9659,10668,3926,2967,2614];
+        chartData.datasets[1].data=[2982,2979,3582,3674,4500,4892,6080,4818,2716,2080,335];
+        chartData.datasets[2].data=[1464,1452,1739,2105,2671,2839,5778,1518,145,1194,0];
+        chartData.datasets[3].data=[631,590,661,757,1187,1357,1484,1016,778,562,41];
+      }
+
+      myChart.update();
+    }
+  </script>
+  <hr class="line">
+  <p class="text">Data of upcoming year for various programs of Haryana State and all Districts[Branch:All]</p>
+  <div class="drop">
+	<label for="course">SELECT PROGRAM:</label>
+	<select id="filter">
+		<option value="eng">Engineering</option>
+		<option value="man">Management</option>
+		<option value="pharma">Pharmacy</option>
+	</select>
+</div>
+<div class="drop">
+  <label for="course">SELECT STATE:</label>
+  <select id="chartDropdown">
+    <option value="Haryana">Haryana</option>
+    <option value="Delhi">Delhi</option>
+    <option value="Gujarat">Gujarat</option>
+    <option value="Uttarakhand">Uttarakhand</option>
+    <option value="Meghalaya">Meghalaya</option>
+    <option value="Tamil Nadu">Tamil Nadu</option>
+  </select>
+</div>
+<br>
+<br>
+
+    <br>
+<!-- <div id="bo">
+	<div class="box">
+		<label></label>
+		<span id="intake">220</span>
+    <div>
+      <h3 class="pt">Total Institutions</h3>
+      <p class="para">
+        Total institutions as per the selected choice of your convenience.
+      </p>
+    </div>
+	</div> -->
+  
+  <div id="bo">
+	<div class="box">
+		<label></label>
+		<span id="intake">64293</span>
+    <div class="oo">
+      <h3 class="pt">Total Intakes</h3>
+      <p class="para">
+        Total intakes as per the selected choice of your convenience.
+        
+      </p>
+    </div>
+	</div>
+        
+
+	<div class="box">
+		<label></label>
+		<span id="enrolled">28130</span>
+    <div class="oo">
+      <h3 class="pt">Total Enrollments</h3>
+      <p class="para">
+        Total Enrollments as per the selected choice of your convenience.
+      </p>
+    </div>
+	</div>
+
+	<div class="box">
+		<label></label>
+		<span id="placed">13083</span>
+    <div class="oo">
+      <h3 class="pt">Total Placements</h3>
+      <p class="para">
+        Total Placements as per the selected choice of your convenience.
+      </p>
+    </div>
+	</div>
+  </div>
+	<script>
+		// default values
+		var eng = {intake: 64293, enrolled: 28130,  placed: 13083};
+		var man = {intake: 10138, enrolled: 5740,  placed: 2894};
+		var pharma = {intake: 7774, enrolled: 3228,  placed: 1063};
+
+		// update box values based on selected filter
+		$('#filter').on('change', function() {
+			var filter = $(this).val();
+
+			if (filter === 'eng') {
+				$('#intake').text(eng.intake);
+				$('#enrolled').text(eng.enrolled);
+				$('#passed').text(eng.passed);
+				$('#placed').text(eng.placed);
+			} else if (filter === 'man') {
+				$('#intake').text(man.intake);
+				$('#enrolled').text(man.enrolled);
+				$('#passed').text(man.passed);
+				$('#placed').text(man.placed);
+			} else if (filter === 'pharma') {
+				$('#intake').text(pharma.intake);
+				$('#enrolled').text(pharma.enrolled);
+				$('#passed').text(pharma.passed);
+				$('#placed').text(pharma.placed);
+			}
+		});
+	</script>
+  <br>
+  <br>
+  <br>
+  <br>
+
+  <hr class="line">
+  <br>
+  <div class="lk" style="text-align: center ;font-size: 20px; font-weight:bold">
+  To Study the analysis of Placements of both Government and Private Institutes-
+  <a href="mergelglp.html" style="color:blue" onMouseOver="this.style.color;'red'">Click here</a>
+  </div>
+  <br>
+  <!-- <div class="lk" style="text-align: center ; font-weight:bold">
+  To Study the analysis of Placements of Private Institutes-
+  <a href="lineChartPvt.html" style="color:blue" onMouseOver="this.style.color;'red'">Click here</a>
+  </div>
+  <br> -->
+  <div class="lk" style="text-align: center ;font-size: 20px; font-weight:bold">
+  To Study the analysis of Branch-wise Placements-
+  <a href="BranchPlacmt.html" style="color:blue" onMouseOver="this.style.color;'red'">Click here</a>
+  </div>
+  <div class="lk" style="text-align: center ;font-size: 20px; font-weight:bold">
+  To Study the analysis of prediction of Branch-wise Placements-
+  <a href="Future boxes.html" style="color:blue" onMouseOver="this.style.color;'red'">Click here</a>
+  </div>
+		<br>
+		<br>
+		<br>
+    <br>
+    
+		
+	
+
+
+  
+  <div>
+    <footer>
+
+    </footer> 
+  </div>
+
+</body>
+</html>
+
